@@ -9,15 +9,19 @@ class ImagePicker extends React.Component {
     }
 
     handleChange() {
+        // Reflect the changes to the file picker
         const file = document.querySelector('#file_picker').files[0];
         this.props.onImageChange(URL.createObjectURL(file));
     }
 
     handleUploadImage() {
         const fileInput = document.querySelector('#file_picker');
+        // If there are no files to be uploaded, notify the user
         if (fileInput.files.length < 1) {
+            alert("Please select a file before uploading.")
             return;
         }
+        // Process the first uploaded image
         const file = fileInput.files[0];
         this.props.onImageUpload(file);
     }
