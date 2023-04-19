@@ -2,6 +2,7 @@ class ImagePrediction {
     static labels = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck'];
 
     constructor() {
+        // Initiate the probability list for each class to 0
         this.probList = []
         for (let i = 0; i < ImagePrediction.labels.length; ++i) {
             this.probList.push(0.);
@@ -10,13 +11,14 @@ class ImagePrediction {
 
     getProbList() { return this.probList; }
 
-    static create(data) {
+    static create(probDict) {
         const imgPred = new ImagePrediction();
-        let j = 0;
+        let i = 0;
 
-        for (var i in data) {
-            imgPred.probList[j] = data[i];
-            ++j;
+        for (var key in probDict) {
+            console.log(key)
+            imgPred.probList[i] = probDict[key];
+            ++i;
         }
 
         return imgPred;
