@@ -13,6 +13,7 @@ class App extends React.Component {
     this.onImageUpload = this.onImageUpload.bind(this);
     this.populateChart = this.populateChart.bind(this);
     const imgPred = new ImagePrediction();
+
     this.state = {
       options: {
         indexAxis: 'y',
