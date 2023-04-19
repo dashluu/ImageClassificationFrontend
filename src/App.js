@@ -14,6 +14,7 @@ class App extends React.Component {
     this.populateChart = this.populateChart.bind(this);
     const imgPred = new ImagePrediction();
 
+    // Initialize a state to store chart's data
     this.state = {
       options: {
         indexAxis: 'y',
@@ -49,14 +50,17 @@ class App extends React.Component {
   }
 
   onImageChange(src) {
+    // Reflect the change if another image is uploaded
     const img = document.querySelector('#img');
     img.src = src;
   }
 
   onImageUpload(file) {
+    // Create a new form that stores the uploaded image
     const formData = new FormData();
     formData.append('img_file', file);
 
+    // Create an http request
     const request = new Request(
       'http://127.0.0.1:8000/cifar10-api/',
       {
@@ -66,11 +70,12 @@ class App extends React.Component {
       }
     );
 
-    // Fetch data from server
+    // Fetch data from the server after doing the image classification task
     fetch(request)
       .then((result) => result.json())
       .then((data) => {
-        const imgPred = ImagePrediction.create(data.prediction['prob_dict']);
+        const probDict = data.prediction['prob_dict']
+        const imgPred = ImagePrediction.create(probDict);
         this.setState({
           chartData: this.populateChart(imgPred)
         });
